@@ -15,14 +15,14 @@
             <strong>{{ question.statement }}</strong>
           </div>
         </template>
-        <v-radio name="good" value="1">
+        <v-radio name="choice" value="1">
           <template v-slot:label>
             <div>
               {{ question.goodAnswer }}
             </div>
           </template>
         </v-radio>
-        <v-radio ame="bad" value="0">
+        <v-radio ame="choice" value="0">
           <template v-slot:label>
             <div>
               {{ question.badAnswer }}
@@ -32,6 +32,9 @@
       </v-radio-group>
     </v-card>
     <v-btn rounded color="primary" @click="submitAnswer">submit</v-btn>
+    <v-dialog v-model="resultDialog">
+      Tu a {{ goodAswrCountr }} bonne reponse(s) sur {{ qcm.qstnTab.length }}
+    </v-dialog>
   </div>
 </template>
 
@@ -46,6 +49,7 @@ export default {
     qcm: {},
     question: {},
     goodAswrCountr: 0,
+    resultDialog: false,
   }),
   created() {
     this.qcm = this.$route.query.q;
@@ -56,11 +60,14 @@ export default {
     submitAnswer() {
       const rbs = document.querySelectorAll('input[name="choice"]');
       for (const rb of rbs) {
-        if (rb.value == 1) {
-          this.goodAswrCountr += 1;
+        if (rb.checked) {
+          if (rb.value == 1) {
+            this.goodAswrCountr += 1;
+          }
         }
       }
-      console.log(this.goodAswrCountr);
+      this.resultDialog = true;
+      console.log(this.goodAswrCountr + " bonne(s) réponses");
     },
   },
 };
