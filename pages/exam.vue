@@ -33,7 +33,12 @@
     </v-card>
     <v-btn rounded color="primary" @click="submitAnswer">submit</v-btn>
     <v-dialog v-model="resultDialog">
-      Tu a {{ goodAswrCountr }} bonne reponse(s) sur {{ qcm.qstnTab.length }}
+      <v-card>
+        <v-card-tite>
+          Tu a {{ goodAswrCountr }} bonne reponse(s) sur
+          {{ qcm.qstnTab.length }}
+        </v-card-tite>
+      </v-card>
     </v-dialog>
   </div>
 </template>
